@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/signup', name: 'app_signup')]
+    #[Route('/signup', name: 'app_signup', methods: ['GET'])]
     public function signUp(): Response
     {
         return $this->render('auth/registration.html.twig');
