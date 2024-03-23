@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sign in
+{% endblock %}
+
+{% block body %}
+	<div class="centered-div">
+		<form method="post">
+			<label for="username">Username:</label><br>
+			<input type="text" id="inputUsername" name="username" required><br><br>
+			<label for="password">Password:</label><br>
+			<input type="password" id="inputPassword" name="password" required><br><br>
+			<button type="submit">Sign in</button>
+		</form>
+	</div>
+{% endblock %}
