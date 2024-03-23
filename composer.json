@@ -16,6 +16,7 @@
         "symfony/flex": "^2",
         "symfony/framework-bundle": "7.0.*",
         "symfony/maker-bundle": "^1.57",
+        "symfony/monolog-bundle": "^3.0",
         "symfony/runtime": "7.0.*",
         "symfony/security-bundle": "7.0.*",
         "symfony/twig-bundle": "7.0.*",
@@ -72,5 +73,10 @@
             "require": "7.0.*",
             "docker": true
         }
+    },
+    "require-dev": {
+        "symfony/debug-bundle": "7.0.*",
+        "symfony/stopwatch": "7.0.*",
+        "symfony/web-profiler-bundle": "7.0.*"
     }
 }
