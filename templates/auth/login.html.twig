@@ -4,6 +4,9 @@
 {% endblock %}
 
 {% block body %}
+	{% if error %}
+		<h2>{{ error.messageKey }}</h2>
+	{% endif %}
 	<div class="centered-div">
 		<form method="post">
 			<label for="username">Username:</label><br>
