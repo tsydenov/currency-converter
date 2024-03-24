@@ -5,9 +5,10 @@ namespace App\Entity;
 use App\Repository\RateRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 #[ORM\Entity(repositoryClass: RateRepository::class)]
-class Rate
+class Rate implements JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -93,5 +94,13 @@ class Rate
         $this->ratesSource = $ratesSource;
 
         return $this;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'base' => $this->base,
+            'price' => $this->price
+        ];
     }
 }
