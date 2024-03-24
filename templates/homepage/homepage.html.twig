@@ -1,8 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Currency Converter
+{% block title %}
+Currency Converter
 {% endblock %}
-
 {% block body %}
-    <h1>Hello, world!</h1>
+<div class="centered-div">
+	<form id="currency-form">
+		<input type="number" id="amount" placeholder="Number" size="10" min="0" class="amount-input">
+		<select id="source-currency">
+			<!-- Iterate over currencies array provided from the controller -->
+			{% for rate in rates|sort((a, b) => a.base <=> b.base) %}
+				<option value={{ rate.base }}>{{ rate.base }}</option>
+			{% endfor %}
+		</select>
+		=>
+		<select id="target-currency">
+			<!-- Iterate over currencies array provided from the controller -->
+			{% for rate in rates|sort((a, b) => a.base <=> b.base) %}
+				<option value={{ rate.base }}>{{ rate.base }}</option>
+			{% endfor %}
+		</select>
+		<button type="button" onclick="convertRate()">Convert</button>
+	</form>
+
+	<div id="result"></div>
+</div>
+
+<script>
+	// Access the currencies array from PHP via JavaScript
+	var rates = {{ rates|json_encode()|raw }};
+
+	function convertRate() { // Your conversion logic using the currencies array
+		const sourceCurrency = document.getElementById('source-currency').value;
+		const targetCurrency = document.getElementById('target-currency').value;
+		const amount = parseFloat(document.getElementById('amount').value);
+		for (var i = 0; i < rates.length; i++) {
+			if (rates[i]['base'] === sourceCurrency) {
+				sourceRate = rates[i]['price'];
+				break;
+			}
+		}
+		for (var i = 0; i < rates.length; i++) {
+			if (rates[i]['base'] === targetCurrency) {
+				targetRate = rates[i]['price'];
+				break;
+			}
+		}
+		const convertedAmount = amount * parseFloat(sourceRate.replace(",", ".")) / parseFloat(targetRate.replace(",", "."));
+
+		document.getElementById('result').innerText = `${convertedAmount.toFixed(2)}`;
+	}
+</script>
 {% endblock %}
