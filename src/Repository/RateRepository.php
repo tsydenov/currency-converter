@@ -21,6 +21,32 @@ class RateRepository extends ServiceEntityRepository
         parent::__construct($registry, Rate::class);
     }
 
+    public function saveAll(array $rates)
+    {
+        array_map(function ($rate) {
+            $currentRate = $this->findOneBy(['base' => $rate->getBase()]);
+
+            if (isset($currentRate)) {
+                $this->update($currentRate, $rate);
+            } else {
+                $this->save($rate);
+            }
+        }, $rates);
+    }
+
+    public function save(Rate $rate): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($rate);
+        $entityManager->flush();
+    }
+
+    public function update(Rate $currentRate, Rate $newRate): void
+    {
+        $currentRate->setPrice($newRate->getPrice());
+        $this->getEntityManager()->flush();
+    }
+
     //    /**
     //     * @return Rate[] Returns an array of Rate objects
     //     */
