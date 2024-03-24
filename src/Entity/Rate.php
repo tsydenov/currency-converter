@@ -26,6 +26,10 @@ class Rate
     #[ORM\Column]
     private ?\DateTimeImmutable $date = null;
 
+    #[ORM\ManyToOne(inversedBy: 'rates')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?RatesSource $ratesSource = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +79,18 @@ class Rate
     public function setDate(\DateTimeImmutable $date): static
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getRatesSource(): ?RatesSource
+    {
+        return $this->ratesSource;
+    }
+
+    public function setRatesSource(?RatesSource $ratesSource): static
+    {
+        $this->ratesSource = $ratesSource;
 
         return $this;
     }
